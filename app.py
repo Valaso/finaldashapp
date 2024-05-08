@@ -24,15 +24,17 @@ app.layout = html.Div([
         style={'display': 'flex', 'justifyContent': 'center'}
     ),
 
-    # Slider positioned below the two graphs
-    dcc.RangeSlider(
-        id='grade-slider',
-        min=data_por['G3'].min(),
-        max=data_por['G3'].max(),
-        value=[data_por['G3'].min(), data_por['G3'].max()],
-        marks={i: str(i) for i in range(data_por['G3'].min(), data_por['G3'].max() + 1, 2)},
-        step=1,
-        tooltip={"placement": "bottom", "always_visible": True},
+    # Slider positioned below the two graphs wrapped in a div for styling
+    html.Div(
+        dcc.RangeSlider(
+            id='grade-slider',
+            min=data_por['G3'].min(),
+            max=data_por['G3'].max(),
+            value=[data_por['G3'].min(), data_por['G3'].max()],
+            marks={i: str(i) for i in range(data_por['G3'].min(), data_por['G3'].max() + 1, 2)},
+            step=1,
+            tooltip={"placement": "bottom", "always_visible": True},
+        ),
         style={'width': '80%', 'margin': 'auto', 'marginTop': '20px'}
     )
 ])
