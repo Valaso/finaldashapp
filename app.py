@@ -50,8 +50,7 @@ def update_heatmap(grade_range):
         filtered_data,
         x='Study Time (hours per week)',
         y='Final Grade',
-        title='Effect of study time on Final Grades',
-        color_continuous_scale='Purples'
+        title='Effect of study time on Final Grades'
     )
     return fig_heatmap
 
@@ -71,6 +70,13 @@ def update_bar_chart(grade_range):
         'School Support': (filtered_data['schoolsup'] == 'yes').sum() / total_count * 100,
         'Romantic Relationships': (filtered_data['romantic'] == 'yes').sum() / total_count * 100
     }
+
+     # Define a specific color for each support type
+    colors = {
+        'Family Support': '#F69334',
+        'School Support': '#757A2A',
+        'Romantic Relationships': '#F976C8'
+    }
     
     # Create the bar chart with percentages
     fig_bar = px.bar(
@@ -78,7 +84,7 @@ def update_bar_chart(grade_range):
         y=list(support_counts.values()),
         title='Type of support recieved at selected Grade Range',
         labels={'x': 'Support Type', 'y': 'Percentage (%)'},
-        color_discrete_sequence=px.colors.sequential.Purp
+        color_discrete_map=colors
     )
     return fig_bar
 
