@@ -13,7 +13,7 @@ server = app.server
 
 # Define the layout of the app
 app.layout = html.Div([
-    html.H1("Impacts of Social Support"),
+    html.H1("Impacts of Social Support on Final Grades"),
     
     # Two graphs side by side using a flexbox layout
     html.Div(
@@ -50,7 +50,7 @@ def update_heatmap(grade_range):
         filtered_data,
         x='Study Time (hours per week)',
         y='Final Grade',
-        title='Effect of study time on Final Grades'
+        title='Heatmap of Study Time vs Grades'
     )
     return fig_heatmap
 
@@ -70,24 +70,17 @@ def update_bar_chart(grade_range):
         'School Support': (filtered_data['schoolsup'] == 'yes').sum() / total_count * 100,
         'Romantic Relationships': (filtered_data['romantic'] == 'yes').sum() / total_count * 100
     }
-
-     # Define a specific color for each support type
-    colors = {
-        'Family Support': '#F69334',
-        'School Support': '#757A2A',
-        'Romantic Relationships': '#F976C8'
-    }
     
     # Create the bar chart with percentages
     fig_bar = px.bar(
         x=list(support_counts.keys()),
         y=list(support_counts.values()),
-        title='Type of support recieved at selected Grade Range',
-        labels={'x': 'Support Type', 'y': 'Percentage (%)'},
-        color_discrete_map=colors
+        title='Support Percentage for Selected Grade Range',
+        labels={'x': 'Support Type', 'y': 'Percentage (%)'}
     )
     return fig_bar
 
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True)
+
