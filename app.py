@@ -6,10 +6,10 @@ import pandas as pd
 
 # Load the data
 data_por = pd.read_csv('student-por.csv')
-server = app.server
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
+server = app.server
 
 # Define the layout of the app
 app.layout = html.Div([
