@@ -13,7 +13,7 @@ server = app.server
 
 # Define the layout of the app
 app.layout = html.Div([
-    html.H1("Student Performance Visualization"),
+    html.H1("Impacts of Social Support"),
     
     # Two graphs side by side using a flexbox layout
     html.Div(
@@ -48,9 +48,10 @@ def update_heatmap(grade_range):
     filtered_data = data_por[(data_por['G3'] >= grade_range[0]) & (data_por['G3'] <= grade_range[1])]
     fig_heatmap = px.density_heatmap(
         filtered_data,
-        x='studytime',
-        y='G3',
-        title='Heatmap of Study Time vs Grades'
+        x='Study Time (hours per week)',
+        y='Final Grade',
+        title='Effect of study time on Final Grades',
+        color_continuous_scale='Purples'
     )
     return fig_heatmap
 
@@ -75,8 +76,9 @@ def update_bar_chart(grade_range):
     fig_bar = px.bar(
         x=list(support_counts.keys()),
         y=list(support_counts.values()),
-        title='Support Percentage for Selected Grade Range',
-        labels={'x': 'Support Type', 'y': 'Percentage (%)'}
+        title='Type of support recieved at selected Grade Range',
+        labels={'x': 'Support Type', 'y': 'Percentage (%)'},
+        color_discrete_sequence=px.colors.sequential.Purp
     )
     return fig_bar
 
