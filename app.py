@@ -9,6 +9,7 @@ data_por = pd.read_csv('student-por.csv')
 
 # Initialize the Dash app (optionally add external stylesheets)
 app = dash.Dash(__name__)
+server = app.server
 
 # Define the layout of the app
 app.layout = html.Div([
