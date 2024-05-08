@@ -14,6 +14,17 @@ server = app.server
 # Define the layout of the app
 app.layout = html.Div([
     html.H1("Student Performance Visualization"),
+    
+    # Two graphs side by side using a flexbox layout
+    html.Div(
+        children=[
+            dcc.Graph(id='heatmap-graph', style={'width': '48%', 'display': 'inline-block'}),
+            dcc.Graph(id='bar-chart-graph', style={'width': '48%', 'display': 'inline-block', 'marginLeft': '4%'})
+        ],
+        style={'display': 'flex', 'justifyContent': 'center'}
+    ),
+
+    # Slider positioned below the two graphs
     dcc.RangeSlider(
         id='grade-slider',
         min=data_por['G3'].min(),
@@ -21,10 +32,9 @@ app.layout = html.Div([
         value=[data_por['G3'].min(), data_por['G3'].max()],
         marks={i: str(i) for i in range(data_por['G3'].min(), data_por['G3'].max() + 1, 2)},
         step=1,
-        tooltip={"placement": "bottom", "always_visible": True}
-    ),
-    dcc.Graph(id='heatmap-graph'),
-    dcc.Graph(id='bar-chart-graph')
+        tooltip={"placement": "bottom", "always_visible": True},
+        style={'width': '80%', 'margin': 'auto', 'marginTop': '20px'}
+    )
 ])
 
 # Callback to update heatmap
