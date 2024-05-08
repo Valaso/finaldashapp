@@ -19,7 +19,7 @@ app.layout = html.Div([
         min=data_por['G3'].min(),
         max=data_por['G3'].max(),
         value=[data_por['G3'].min(), data_por['G3'].max()],
-        marks={i: str(i) for i in range(data_por['G3'].min(), data_por['G3'].max()+1, 2)},
+        marks={i: str(i) for i in range(data_por['G3'].min(), data_por['G3'].max() + 1, 2)},
         step=1,
         tooltip={"placement": "bottom", "always_visible": True}
     ),
@@ -48,16 +48,23 @@ def update_heatmap(grade_range):
     Input('grade-slider', 'value')
 )
 def update_bar_chart(grade_range):
+    # Filter the data based on the grade range
     filtered_data = data_por[(data_por['G3'] >= grade_range[0]) & (data_por['G3'] <= grade_range[1])]
+    
+    # Count the occurrences of each support type and calculate percentages
+    total_count = len(filtered_data)
     support_counts = {
-        'Family Support': (filtered_data['famsup'] == 'yes').sum(),
-        'School Support': (filtered_data['schoolsup'] == 'yes').sum(),
-        'Romantic Relationships': (filtered_data['romantic'] == 'yes').sum()
+        'Family Support': (filtered_data['famsup'] == 'yes').sum() / total_count * 100,
+        'School Support': (filtered_data['schoolsup'] == 'yes').sum() / total_count * 100,
+        'Romantic Relationships': (filtered_data['romantic'] == 'yes').sum() / total_count * 100
     }
+    
+    # Create the bar chart with percentages
     fig_bar = px.bar(
         x=list(support_counts.keys()),
         y=list(support_counts.values()),
-        title='Support Count for Selected Grade Range'
+        title='Support Percentage for Selected Grade Range',
+        labels={'x': 'Support Type', 'y': 'Percentage (%)'}
     )
     return fig_bar
 
